@@ -23,6 +23,7 @@ Personal GitHub organization for experiments, games, tooling, and shared automat
 - Squash merge only
 - No direct push to `master`
 
-## Contact
+## Maintainers / Contributors
 
-Maintained by [@tranthaiminhtansoft](https://github.com/tranthaiminhtansoft)
+- [@tranthaiminhtansoft](https://github.com/tranthaiminhtansoft)
+- [@tuantran19912512](https://github.com/tuantran19912512)
