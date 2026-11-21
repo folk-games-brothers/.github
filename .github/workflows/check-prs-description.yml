@@ -8,7 +8,7 @@ permissions:
   pull-requests: read
 
 jobs:
-  check-pr-template:
+  check-prs-description:
     runs-on: ubuntu-latest
     steps:
       - name: Validate PR template fields
