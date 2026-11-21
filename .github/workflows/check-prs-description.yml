@@ -11,7 +11,7 @@ jobs:
   check-prs-description:
     runs-on: ubuntu-latest
     steps:
-      - name: Validate PR template fields
+      - name: Validate PR description
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
         run: |
@@ -20,22 +20,27 @@ jobs:
           printf '%s' "$PR_BODY" > "$body_file"
 
           missing=0
+
+          # Required sections
           for heading in "## WHAT CHANGED" "## Testing" "## Risk & Rollback"; do
             if ! grep -qF "$heading" "$body_file"; then
-              echo "Missing required section: $heading"
+              echo "Thiếu mục bắt buộc: $heading"
               missing=1
             fi
           done
 
-          # Require at least one checkbox in Testing or Checklist
-          if ! grep -Fq -- '- [ ]' "$body_file" && ! grep -Fq -- '- [x]' "$body_file" && ! grep -Fq -- '- [X]' "$body_file"; then
-            echo "Missing required checkbox list."
+          # WHAT CHANGED must contain at least one change type
+          if ! grep -Eq 'New Added|New Removed|New Edited' "$body_file"; then
+            echo "Mục WHAT CHANGED phải có ít nhất một trong: New Added, New Removed, New Edited"
             missing=1
           fi
 
+          # Testing and Risk & Rollback are optional, but their headings are required.
+          # Rollback may be "None" or empty.
+
           if [ "$missing" -ne 0 ]; then
-            echo "PR description does not follow the required template."
+            echo "PR description does not follow the required layout."
             exit 1
           fi
 
-          echo "PR template check passed."
+          echo "PR description check passed."
