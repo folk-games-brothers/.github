@@ -28,7 +28,7 @@ jobs:
           done
 
           # Require at least one checkbox in Testing or Checklist
-          if ! grep -Eq -- '- \[[ xX]\]' "$body_file"; then
+          if ! grep -Fq -- '- [ ]' "$body_file" && ! grep -Fq -- '- [x]' "$body_file" && ! grep -Fq -- '- [X]' "$body_file"; then
             echo "Missing required checkbox list."
             missing=1
           fi
