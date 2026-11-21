@@ -1,4 +1,4 @@
-name: pr-template-check-prs
+name: check-prs-description
 
 on:
   workflow_call:
